@@ -1,0 +1,33 @@
+{%extends 'shop/basic.html'%}
+
+{% block title %}Title of contact Page {% endblock %}
+
+{% block body %}
+
+<div class="container my-5">
+    <h1><strong style="color : rgba(59, 95, 59, 0.649)"><i>Contact Us</i></strong></h1>
+    <form action="/shop/contact/" method="POST"> {% csrf_token %} 
+        <div class="mb-3">
+            <label for="name_id" class="form-label">Name:</label>
+            <input type="text" class="form-control" id="name_id" name="text_name" aria-describedby="emailHelp"
+                placeholder="Enter your full name here">
+        </div>
+        <div class="mb-3">
+            <label for="email_id" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email_id" name="email_name" placeholder="Enter your email here">
+            <div id="emailHelp" class="form-text" style="color: rgb(189, 162, 162);">We'll never share your email with anyone else.</div>
+        </div> 
+        <div class="mb-3">
+            <label for="Phonenumber_id" class="form-label">Phone:</label>
+            <input type="tel" class="form-control" name="Phone_name" id="Phonenumber_id">
+        </div>
+        <div class="form-floating">
+            <label for="textarea_id" class="form-label">How may we hwlp you?</label>
+            <textarea class="form-control" name="textarea_name" placeholder="Type text here..." id="textarea_id"
+                style="height: 100px" ></textarea>
+        </div>
+        <button type="submit" class="btn btn-success my-3">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

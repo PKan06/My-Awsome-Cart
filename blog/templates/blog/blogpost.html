@@ -1,0 +1,115 @@
+{%extends 'blog/basic.html'%}
+
+{% block css %}
+<style>
+  .settitle {
+    color: darkcyan;
+  }
+
+  .setsimpletext {
+    color: #21224b;
+  }
+
+  .containerbg {
+    background: rgb(238, 238, 238);
+    padding-bottom: -30px;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+  <div class="row g-5">
+    <div class="col-md-8">
+      <h3 class="pb-4 mb-4 fst-italic border-bottom text-primary">
+        {{BlogDetails.topic}}
+        <hr>
+      </h3>
+      <article class="blog-post ">
+        <h2 class="blog-post-title settitle settitle">{{BlogDetails.title}}</h2>
+        <p class="blog-post-meta"> {{BlogDetails.pub_date}} <a href="#">Mark</a></p>
+        <div class="my-4 fb-like" data-href="http://127.0.0.1:8000/blog/blogpost/1" data-width="" data-layout="standard"
+          data-action="like" data-size="large" data-share="true"></div>
+
+        <p class="setsimpletext">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti sapiente nisi
+          adipisci ea voluptatibus quos nobis explicabo, consequatur doloremque minus incidunt ab asperiores, quia
+          earum. Eum repellendus quam minima in vitae obcaecati velit nesciunt cumque perferendis, optio officiis illo
+          eos! Cum delectus vero, beatae accusantium ipsa rem ut! Ab veritatis possimus maxime placeat voluptatem vitae
+          ducimus necessitatibus? Eaque, error. Porro eius dolor temporibus vero voluptas repellat fugit totam placeat,
+          illo voluptates molestias laboriosam enim repudiandae? Odit quos non optio fugit tempore numquam accusantium
+          perspiciatis, molestiae fugiat iste ab consequuntur itaque deleniti consequatur, repudiandae veritatis saepe
+          at, officia esse nesciunt distinctio. Accusantium voluptates porro animi a quisquam rem consectetur
+          exercitationem laborum, aspernatur ipsum. Voluptatum eius soluta quo quos omnis sunt recusandae nemo esse,
+          praesentium numquam ipsum? Vel porro quo, quasi quaerat eveniet ex esse voluptatum delectus minus. Ipsum
+          dolorum magni est, amet ipsam adipisci dicta, accusamus excepturi quae maiores pariatur culpa in architecto
+          suscipit error? Culpa veniam voluptatem repellat enim sint beatae quam, asperiores dolore sunt ab expedita
+          soluta ex et, minus, vitae laboriosam facere optio! Sapiente tempore voluptas obcaecati reprehenderit
+          praesentium blanditiis, officiis, itaque architecto beatae amet nisi quo est perspiciatis et, totam aperiam
+          pariatur tenetur repellat vero inventore sit?</p>
+        <hr>
+        <p class="setsimpletext">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet saepe animi neque
+          quos cum sed libero iste sunt vitae nobis.</p>
+
+        <h2 class="settitle">{{BlogDetails.head0}}</h2>
+        <p class="setsimpletext">{{BlogDetails.chead0}}</p>
+        <h3 class="settitle">{{BlogDetails.head1}}</h3>
+        <p>{{BlogDetails.chead1}}</p>
+        <pre><code><strong>{{BlogDetails.head2}}</strong></code></pre>
+        <p class="setsimpletext">{{BlogDetails.chead2}}</p>
+      </article>
+
+      <h4 class="settitle my-5">Related Search :</h4>
+      {% for RelatedBlogDetails in RelatedBlogDetails1 %}
+      <div class="container containerbg">
+        {% for i in RelatedBlogDetails %}
+        <div class="row mb-2">
+          <div class="col-md-12">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              <div class="col-auto d-none d-lg-block mt-4">
+                <img src="/media/{{i.thumnbnaile}}" alt="Not found" class="bd-placeholder-img" width="300" height="150">
+              </div>
+              <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">{{i.topic}}</strong>
+                <h3 class="mb-0">{{i.title}}</h3>
+                <div class="mb-1 text-muted">{{i.pub_date}}</div>
+                <p class="card-text mb-auto">{{i.chead0|slice:"0:70"}}...</p>
+                <a href="/blog/blogpost/{{i.post_id}}" class="stretched-link">Continue reading</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+
+      <div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogpost/4" data-width="" data-numposts="5"></div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+        <img src="/media/{{BlogDetails.thumnbnaile}}" alt="Not found" width="350px" height="auto">
+        <div class="p-4 mb-3 bg-light rounded">
+          <h4 class="fst-italic">About</h4>
+          <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers,
+            content, or something else entirely. Totally up to you.</p>
+          </div>
+          
+          <div class="p-4">
+            <h4 class="fst-italic">Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">GitHub</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Facebook</a></li>
+              <div class="fb-share-button my-5 mx-1 " data-href="http://127.0.0.1:8000/blog/blogpost/3" data-layout="button_count"
+                data-size="large"><a target="_blank"
+                  href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Fblog%2Fblogpost%2F3&amp;src=sdkpreparse"
+                  class="fb-xfbml-parse-ignore">शेयर करें</a></div>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,122 @@
+{%extends 'shop/basic.html'%}
+
+{% block title %}My Awesome cart tracker {% endblock %}
+{% block css %}
+<style>
+    .list-group-item {
+        margin: 5px 0px;
+        border-radius: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<body>
+    <!-- showing how to load page without loading a page -->
+    <div class="container">
+        <div class="col my-4">
+            <h2>Enter your order id and email addesss to track your order</h2>
+            <form class="row g-3" method="post" id="trackerForm"> {% csrf_token %}
+                <div class="col-md-6">
+                    <label for="inputorderid" class="form-label">Order id</label>
+                    <input type="number" name="orderid_name" class="form-control" id="inputorderid"
+                        placeholder="Order id">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="e_name">
+                </div>
+                <div class="col-12 my-2">
+                    <button type="submit" class="btn btn-primary">Track order</button>
+                </div>
+            </form>
+        </div>
+        <div class="col my-2">
+            <h2>Your order Status: </h2>
+            <div class="my-4">
+                <ul class="list-group" id="items">
+                    Enter your order Id and Email and click Track Order to find details about your order!
+                </ul>
+            </div>
+        </div>
+        <div class="col my-2" id="details">
+
+
+
+        </div>
+    </div>
+</body>
+{% endblock %}
+
+{% block js %}
+<script>
+    $('#trackerForm').submit(function (event) {
+
+        $('#items').empty(); // to empty the privious fille item
+        var formData = {
+            'orderId': $('input[name="orderid_name"]').val(),
+            'email': $('input[name="e_name"]').val(),
+            'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()// to varify thet we are the one sending data
+        };
+        // console.log(formData); // so its working 
+        $.ajax({
+            type: 'POST',
+            url: '/shop/tracker/',
+            data: formData, // it autometicaly convert list to string
+            encode: true
+        })
+            .done(function (data) {// when its done {function of ajax}
+                console.log(data); // getting form inside
+                /*
+                data look like :
+                [[{"text": "The order has been placed", "time": "Mon 07 June 2021"}, {"text": "your order is send on shipping from badra to Maharashtra", "time": "Mon 07 June 2021"}, {"text": "order has been reached to Maharashtra", "time": "Mon 07 June 2021"}, {"text": "order send for delivery", "time": "Mon 07 June 2021"}, {"text": "order reached  home", "time": "Mon 07 June 2021"}], "{\"pr11\":[4,\"Philips Multimedia Speaker System, Black\"],\"pr12\":[4,\"Sony Multimedia Speaker System (Black)\"],\"pr14\":[4,\"Samsung 1500W 2.0CH Giga Party Audio\"],\"pr10\":[3,\"Land_Rover_Range_Rover_Velar\"]}"]
+                */
+                data = JSON.parse(data); // convert it to json string
+                updates = data[0]; // convert it to jason string {gives undefine when not present}
+                $('#details').empty();
+                if (updates != {} & updates != undefined) {//& updates.length > 0
+
+                    for (i = 0; i < updates.length; i++) {
+                        let text = updates[i]['text'];
+                        let time = updates[i]['time'];
+                        mystr = `<li class="list-group-item d-flex justify-content-between align-items-center ">
+                            ${text}
+                            <span class="badge bg-secondary rounded-pill text-white">${time}</span>
+                            </li>`
+                        $('#items').append(mystr);  // .append is short cut in jqueary
+                    }
+                    // fill in the order details
+                    cart = JSON.parse(data[1]);
+                    // console.log(cart);
+                    // $('#citems').empty();
+                    mystr = `<h2>Your order Details: </h2>
+                    <div class="my-4">
+                        <ul class="list-group" id="citems">
+                            </ul>
+                            </div>`
+                    $('#details').append(mystr)
+                    for (var item in cart) {
+                        if (item.slice(0, 2) == 'pr') {
+                            let name = cart[item][1];
+                            let qty = cart[item][0];
+                            mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="px-1 flex-grow-1 bd-highlight">${name}</div>
+                                        <span class="mx-1 badge bg-secondary rounded-pill text-white px-2 ">${qty} item</span>
+                                        </li>`
+                            $('#citems').append(mystr);  // .append is short cut in jqueary
+                        }
+                    }
+                }
+                else {
+                    // $('#details').empty();
+                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Sorry, We are not able to fetch this order id and email. Make sure to type correct order Id and email</li>`
+                    $('#items').append(mystr);
+                }
+            });
+
+        event.preventDefault(); // prevent the default behaviour of our form
+    })
+</script>
+{% endblock %}
