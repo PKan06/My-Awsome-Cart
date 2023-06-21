@@ -8,7 +8,6 @@ Django==4.1.7
 idna==3.4
 Naked==0.1.32
 Pillow==9.5.0
-psycopg2==2.9.6
 psycopg2-binary==2.9.6
 python-decouple==3.8
 PyYAML==6.0
