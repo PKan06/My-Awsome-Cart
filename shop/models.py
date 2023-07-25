@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.fields import AutoField, CharField, IntegerField
+# from django.db.models.fields import AutoField, CharField, IntegerField
 
 # Create your models here.
 class Product (models.Model):

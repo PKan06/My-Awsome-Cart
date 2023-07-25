@@ -12,11 +12,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
+# import dj_database_url
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -87,16 +88,26 @@ WSGI_APPLICATION = 'mac.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': '0420',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PASSWORD': 'X4BIhskUUvNed5Lh3es6',
+        'HOST': 'containers-us-west-130.railway.app',
+        'PORT': '5826'
     }
 }
-
-DATABASES['default'] = dj_database_url.config()
+# localhost
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'myshoppingcart',
+#         'USER': 'postgres',
+#         'PASSWORD': '0420',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432'
+#     }
+# }
+# psycopg2 -> db connector    
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
