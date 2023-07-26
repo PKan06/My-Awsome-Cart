@@ -56,7 +56,6 @@
                 data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover" data-html="true">
                 Cart(<span id='cart'>0</span>)
             </button>
-
         </div>
     </nav>
 
@@ -77,8 +76,6 @@
         crossorigin="anonymous"></script>
 
     <script>
-
-
         // for just checking its working or not
         console.log("working")
         // now checking is there exist a previous card which can be called
@@ -95,7 +92,7 @@
 
 
         // $('.cart').click(function () { // only used when we click on {dynamicaly genrated} it at the time of opning
-        $('.divpr').on('click', 'button.cart', function () { // as our element is statuic so we can modified it there only
+        $('.divpr').on('click', 'button.cart', function () { // as our element is static so we can modified it there only
             // console.log('clicked'); // if somone click on add to cart button then we will know
             var idstr = this.id.toString(); // storing clicked id to string
             // console.log(idstr); // pr6``
@@ -121,7 +118,7 @@
             // console.log(cart);
         });
 
-        // $('#popcart').popover('show');  // to activate pop over on cart
+        $('#popcart').popover('hide');  // to activate pop over on cart
         updatepopover(cart);
         for (var item in cart) {
             if (item.slice(0, 2) == 'pr') {
@@ -130,7 +127,7 @@
             // console.log(cart);
         }
         // document.getElementById("popcart").setAttribute('data-content', '<h6>Shopping cart items</h6>');
-
+        
         function updatepopover() {
             // console.log('we are inside updatePopover');
             var popStr = " ";
@@ -138,10 +135,10 @@
             var i = 1;
             for (var item in cart) {
                 if (item.slice(0, 2) == 'pr' && cart[item][0] != 0) {
-                    popStr += "<div class = 'mx-1 my-2 '><b>" + i + ". </b>";
-                    popStr += document.getElementById("name" + item).textContent + "  {Qty: " + cart[item][0] + "}";
-                    i += 1;
-                }
+                        popStr += "<div class = 'mx-1 my-2 '><b>" + i + ". </b>";
+                        popStr += document.getElementById("name" + item).textContent + "  {Qty: " + cart[item][0] + "}";
+                        i += 1;
+                    }
                 popStr += "</div>";
             }
             popStr += "<a href = 'checkout/'><button id = 'check_Out' class='btn btn-primary mx-2'>Check Out</button></a>"
