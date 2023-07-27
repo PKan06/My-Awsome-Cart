@@ -100,11 +100,11 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'myshoppingcart',
-#         'USER': 'postgres',
-#         'PASSWORD': '0420',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432'
+#         'NAME': config("LOCALNAME"),
+#         'USER': config("LOCALUSER"),
+#         'PASSWORD': config("LOCALPASSWORD"),
+#         'HOST': config("LOCALHOST"),
+#         'PORT': config("LOCALPORT", cast = int)
 #     }
 # }
 # psycopg2 -> db connector    
